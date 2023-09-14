@@ -25,10 +25,12 @@ const TripForm = ({ location, onClose }) => {
   return (
     <form onSubmit={handleSubmit(onSubmit)} className="trip-form">
       { error ? <h3 className="error">{error}</h3> : null}
-      <label htmlFor="apiKey">API KEY</label>
-      <input type="password" required {...register('apiKey', { required: true })}  />
+      {/* <label htmlFor="apiKey">API KEY</label>
+      <input type="password" required {...register('apiKey', { required: true })}  /> */}
       <label htmlFor="title">Title</label>
       <input required {...register('title', { required: true })} />
+      <label htmlFor="location">Location</label>
+      <input required {...register('location', { required: true })} />
       {/* <label htmlFor="comments">Comments</label> */}
       {/* <textarea name="comments" rows={3} {...register('test', { required: true })}></textarea> */}
       <label htmlFor="description">Description</label>
