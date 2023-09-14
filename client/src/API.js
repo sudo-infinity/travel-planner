@@ -8,7 +8,7 @@ export async function listTrips() {
 export async function createTrip(entry) {
     const apiKey = entry.apiKey;
     delete entry.apiKey;
-    const response = await fetch(`${API_URL}/api/logs`, {
+    const response = await fetch(`${API_URL}/api/trips`, {
       method: 'POST',
       headers: {
         'content-type': 'application/json',
