@@ -1,6 +1,8 @@
 const express = require('express');
 const { ApolloServer } = require('apollo-server-express');
 const path = require('path');
+const cookieParser = require('cookie-parser')
+const bodyParser = require('body-parser')
 const morgan = require('morgan');
 const helmet = require('helmet');
 const cors = require('cors');
@@ -11,6 +13,8 @@ const middlewares = require('./utils/middlewares');
 const { authMiddleware } = require('./utils/auth');
 
 const trips = require('./api/trips');
+const auth = require('./api/auth');
+const users = require('./api/users');
 const db = require('./config/connection');
 
 const app = express();
@@ -27,6 +31,8 @@ app.use(cors({
 }));
 app.use(express.urlencoded({ extended: false }));
 app.use(express.json());
+app.use(bodyParser.json());
+app.use(cookieParser());
 
 app.get('/', (req, res) => {
   res.json({
@@ -35,6 +41,8 @@ app.get('/', (req, res) => {
 });
 
 app.use('/api/trips', trips);
+app.use('/api/auth', auth);
+app.use('/api/users', users);
 
 app.use(middlewares.notFound);
 
