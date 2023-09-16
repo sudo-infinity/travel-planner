@@ -1,8 +1,9 @@
 import React from "react";
 import { Link } from "react-router-dom";
-// import Auth from "../utils/auth";
 
 const NavBar = () => {
+  const isUserValid = localStorage.getItem("token");
+
   return (
     <ul className="nav col-12 col-md-auto mb-2 justify-content-center mb-md-0">
       <li>
@@ -10,7 +11,7 @@ const NavBar = () => {
           Home
         </Link>
       </li>
-      {true ? (
+      {isUserValid ? (
         <>
           <li>
             <Link
@@ -33,30 +34,22 @@ const NavBar = () => {
         <>
           <li>
             <Link
-              to={"/signup"}
-              className="nav-link px-2 link-dark underline-on-hover"
-            >
-              Signup
-            </Link>
-          </li>
-          <li>
-            <Link
               to={"/login"}
               className="nav-link px-2 link-dark underline-on-hover"
             >
               Login
             </Link>
           </li>
+          <li>
+            <Link
+              to={"/signup"}
+              className="nav-link px-2 link-dark underline-on-hover"
+            >
+              Signup
+            </Link>
+          </li>
         </>
       )}
-      {/* <li>
-        <Link
-          to={"/donate"}
-          className="nav-link px-2 link-dark underline-on-hover"
-        >
-          Donate
-        </Link>
-      </li> */}
       <li>
         <Link
           to={"/contact"}

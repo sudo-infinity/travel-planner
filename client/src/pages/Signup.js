@@ -1,48 +1,36 @@
 import React, { useState } from "react";
-import { Link } from "react-router-dom";
-import { useMutation } from "@apollo/client";
+import { Link, useNavigate} from "react-router-dom";
 // import { ADD_USER } from "../utils/mutations";
 import validator from "validator";
-
 import "../style/signup-login.css";
+import { createUser } from "../api/users";
 
 // import Auth from "../utils/auth";
 
 const Signup = () => {
-  const [formState, setFormState] = useState({
-    username: "",
+  const [data, setData] = useState({
+		username: "",
     email: "",
     password: "",
-  });
-  // const [addUser, { error, data }] = useMutation(ADD_USER);
+	});
+	const [error, setError] = useState("");
+	const navigate = useNavigate();
 
-  const handleChange = (event) => {
-    const { name, value } = event.target;
+	const handleChange = ({ currentTarget: input }) => {
+		setData({ ...data, [input.name]: input.value });
+	};
 
-    setFormState({
-      ...formState,
-      [name]: value,
-    });
-  };
-
-  // const handleFormSubmit = async (event) => {
-  //   event.preventDefault();
-  //   console.log(formState);
-
-  //   try {
-  //     const { data } = await addUser({
-  //       variables: { ...formState },
-  //     });
-
-  //     Auth.login(data.addUser.token);
-  //   } catch (e) {
-  //     console.error(e);
-  //   }
-  // };
-  const handleFormSubmit = async (event) => {
-   console.log("fix this");
-  };
-
+	const handleFormSubmit = async (e) => {
+		e.preventDefault();
+    try {
+      await createUser(data);
+      navigate("/login");
+    } catch (error) {
+      debugger;
+      setError(error.message);
+    }
+	};
+  
   const resetValidation = (e) => {
     e.target.classList.remove("is-invalid");
     e.target.classList.remove("is-valid");
@@ -56,7 +44,7 @@ const Signup = () => {
         e.target.classList.add("is-invalid");
       }
     } else if (e.target.type === "password") {
-      if (e.target.value.length >= 5) {
+      if (e.target.value.length >= 8) {
         e.target.classList.add("is-valid");
       } else {
         e.target.classList.add("is-invalid");
@@ -70,11 +58,9 @@ const Signup = () => {
 
   return (
     <div className="form-signup-login form-signup w-100 m-auto mt-3">
-      {/* {data ? ( */}
-      {true ? (
-
+      {false? (
         <p>
-          Success! You may now head <Link to="/">back to the homepage.</Link>
+          Success! You may now head <Link to="/login">back to the login.</Link>
         </p>
       ) : (
         <form onSubmit={handleFormSubmit}>
@@ -86,7 +72,7 @@ const Signup = () => {
               className="form-control"
               id="username"
               name="username"
-              value={formState.name}
+              value={data.name}
               onChange={handleChange}
               onFocus={resetValidation}
               onBlur={validation}
@@ -101,7 +87,7 @@ const Signup = () => {
               className="form-control"
               id="email"
               name="email"
-              value={formState.email}
+              value={data.email}
               onChange={handleChange}
               onFocus={resetValidation}
               onBlur={validation}
@@ -116,13 +102,13 @@ const Signup = () => {
               className="form-control"
               id="password"
               name="password"
-              value={formState.password}
+              value={data.password}
               onChange={handleChange}
               onFocus={resetValidation}
               onBlur={validation}
             />
             <div className="invalid-feedback m-2">
-              Password must be at least 5 characters
+              Password must be at least 8 characters
             </div>
             <label htmlFor="password">Password</label>
           </div>
@@ -134,10 +120,9 @@ const Signup = () => {
           </button>
         </form>
       )}
-{/* 
       {error && (
-        <div className="my-3 p-3 bg-danger text-white">{error.message}</div>
-      )} */}
+        <div className="my-3 p-3 bg-danger text-white">{error}</div>
+      )}
     </div>
   );
 };

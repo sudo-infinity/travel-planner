@@ -1,11 +1,11 @@
-// import React from "react";
+import React from "react";
 // import { useMutation } from "@apollo/client";
-// import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-// import { faTrashCan } from "@fortawesome/free-solid-svg-icons";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faTrashCan } from "@fortawesome/free-solid-svg-icons";
 
 // import { DELETE_TRIP } from "../utils/mutations";
 
-// const DeleteTrip = ({ tripId }) => {
+const DeleteTrip = ({ tripId }) => {
 //   const [deleteTrip, { error }] = useMutation(DELETE_TRIP);
 //   console.log(tripId);
 
@@ -20,15 +20,15 @@
 //     }
 //   };
 
-//   return (
-//     <span className="mx-2">
-//       <FontAwesomeIcon
-//         className="btn btn-outline-danger"
-//         icon={faTrashCan}
-//         onClick={() => handleDelete(tripId)}
-//       />
-//     </span>
-//   );
-// };
+  return (
+    <span className="mx-2">
+      <FontAwesomeIcon
+        className="btn btn-outline-danger"
+        icon={faTrashCan}
+        // onClick={() => handleDelete(tripId)}
+      />
+    </span>
+  );
+};
 
-// export default DeleteTrip;
+export default DeleteTrip;

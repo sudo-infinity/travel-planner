@@ -3,6 +3,7 @@ import { Link } from "react-router-dom";
 import NavBar from "./NavBar";
 // import Auth from "../utils/auth";
 import logo from "../assets/t-p-logo-sm.png";
+import { currentUser } from "../api/users";
 
 const styles= {
   header: {
@@ -11,9 +12,14 @@ const styles= {
 }
 
 const Header = () => {
+  const isUserValid = localStorage.getItem("token");
+  // const user = currentUser(localStorage.getItem("id"));
+  // debugger; 
+
   const logout = (event) => {
     event.preventDefault();
-    // Auth.logout();
+    localStorage.removeItem("token");
+		window.location.reload();
   };
   return (
     <header className="d-flex flex-wrap align-items-center justify-content-center justify-content-md-between py-4 border-bottom" style={styles.header}>
@@ -32,15 +38,14 @@ const Header = () => {
       </Link>
       <NavBar />
       <div className="col-md-3 text-end">
-        {true ? (
+        {isUserValid ? (
           <>
-            <Link
+            {/* <Link
               className="btn btn-outline-secondary me-2"
-              to={`/users/`}
+              to={`/isUserValids/`}
             >
-              {/* {Auth.getUser().data.username.toUpperCase()}'s trips */}
-              User's trips
-            </Link>
+              {user.name}
+            </Link> */}
             <button className="btn btn-outline-dark me-2" onClick={logout}>
               Logout
             </button>

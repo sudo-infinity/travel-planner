@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { useForm } from 'react-hook-form';
 
-import { createTrip } from './API';
+import { createTrip } from './api/trips';
 
 const TripForm = ({ location, onClose }) => {
   const [loading, setLoading] = useState(false);

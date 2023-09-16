@@ -40,6 +40,8 @@ const client = new ApolloClient({
 });
 
 const App = () => {
+  const user = localStorage.getItem("token");
+
   return (
     <div className="d-flex flex-column min-vh-100">
       <ApolloProvider client={client}>
@@ -47,11 +49,11 @@ const App = () => {
           <Header />
           <Routes>
             <Route path="/" element={<Home />} />
-            <Route path="/map" element={<TripMap/>} />
-            <Route path="/login" element={<Login />} />
-            <Route path="/signup" element={<Signup />} />
-            <Route path="/trips/:tripId" element={<Trip />} />
-            <Route path="/users/:username" element={<UserDashboard />} />
+            {user && <Route path="/map" element={<TripMap/>} />}
+            {!user && <Route path="/login" element={<Login />} />} 
+            {!user && <Route path="/signup" element={<Signup />} />}
+            {user && <Route path="/trips/:tripId" element={<Trip />} />}
+            <Route path="/users/" element={<UserDashboard />} />
             <Route path="/contact" element={<Contact />} />
           </Routes>
           <Footer />

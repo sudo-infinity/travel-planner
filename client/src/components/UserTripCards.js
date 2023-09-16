@@ -14,7 +14,7 @@ const UserTripCards = ({ trips }) => {
               <Link className="text-decoration-none" to={`/trips/${trip._id}`}>
                 <div className="card-body">
                   <h4 className="card-title text-decoration-none card-headings">
-                    {trip.tripName}
+                    {trip.title}
                   </h4>
 
                   <h6 className="card-subtitle mb-2 text-muted">
@@ -33,7 +33,7 @@ const UserTripCards = ({ trips }) => {
                   <div className="col">
                     <DeleteTrip tripId={trip._id} />
                   </div>
-                  <div className="col text-end">
+                  {/* <div className="col text-end">
                     <EditTrip
                       tripId={trip._id}
                       tripName={trip.tripName}
@@ -42,7 +42,7 @@ const UserTripCards = ({ trips }) => {
                       startDate={trip.startDate}
                       endDate={trip.endDate}
                     />
-                  </div>
+                  </div> */}
                 </div>
               </div>
             </div>

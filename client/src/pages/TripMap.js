@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import Map, { Marker, Popup } from 'react-map-gl';
-import { listTrips } from '../API';
+import { listTrips } from '../api/trips';
 import TripForm from '../TripForm';
 import 'mapbox-gl/dist/mapbox-gl.css';
 

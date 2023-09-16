@@ -3,45 +3,32 @@ import { Link } from "react-router-dom";
 import { useMutation } from "@apollo/client";
 // import { LOGIN_USER } from "../utils/mutations";
 import validator from "validator";
+import { loginUser } from "../api/auth";
 
 import "../style/signup-login.css";
 
 // import Auth from "../utils/auth";
 
 const Login = (props) => {
-  const [formState, setFormState] = useState({ email: "", password: "" });
-  // const [login, { error, data }] = useMutation(LOGIN_USER);
+  const [data, setData] = useState({ email: "", password: "" });
+	const [error, setError] = useState("");
 
-  // update state based on form input changes
-  const handleChange = (event) => {
-    const { name, value } = event.target;
+const handleChange = ({ currentTarget: input }) => {
+		setData({ ...data, [input.name]: input.value });
+	};
 
-    setFormState({
-      ...formState,
-      [name]: value,
-    });
-  };
-
-  // submit form
-  const handleFormSubmit = async (event) => {
-    event.preventDefault();
-    console.log(formState);
-    // try {
-    //   const { data } = await login({
-    //     variables: { ...formState },
-    //   });
-
-    //   // Auth.login(data.login.token);
-    // } catch (e) {
-    //   console.error(e);
-    // }
-
-    // clear form values
-    setFormState({
-      email: "",
-      password: "",
-    });
-  };
+  const handleFormSubmit = async (e) => {
+    debugger;
+		e.preventDefault();
+		try {
+      const res = await loginUser(data);
+			localStorage.setItem("token", res.data);
+      localStorage.setItem("id", res.id);
+			window.location = "/";
+		} catch (error) {
+				setError(error.response);
+		}
+	};
 
   const resetValidation = (e) => {
     e.target.classList.remove("is-invalid");
@@ -71,12 +58,6 @@ const Login = (props) => {
   return (
     <div className="mt-3">
       <div className="form-signup-login form-login w-100 m-auto">
-        {/* {data ? ( */}
-        {true ? (
-          <p>
-            Success! You may now head <Link to="/">back to the homepage.</Link>
-          </p>
-        ) : (
           <form onSubmit={handleFormSubmit}>
             <h2 className="h3 mb-3 fw-normal">Please login</h2>
 
@@ -86,7 +67,7 @@ const Login = (props) => {
                 className="form-control"
                 id="email"
                 name="email"
-                value={formState.email}
+                value={data.email}
                 onChange={handleChange}
                 onFocus={resetValidation}
                 onBlur={validation}
@@ -101,7 +82,7 @@ const Login = (props) => {
                 className="form-control"
                 id="password"
                 name="password"
-                value={formState.password}
+                value={data.password}
                 onChange={handleChange}
                 onFocus={resetValidation}
                 onBlur={validation}
@@ -118,11 +99,9 @@ const Login = (props) => {
               <Link to="/signup">Create an account</Link>
             </div>
           </form>
-        )}
-
-        {/* {error && (
+        {error && (
           <div className="my-3 p-3 bg-danger text-white">{error.message}</div>
-        )} */}
+        )}
       </div>
     </div>
   );
