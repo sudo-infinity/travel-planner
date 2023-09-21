@@ -26,7 +26,6 @@ const Signup = () => {
       await createUser(data);
       navigate("/login");
     } catch (error) {
-      debugger;
       setError(error.message);
     }
 	};

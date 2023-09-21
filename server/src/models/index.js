@@ -1,11 +1,11 @@
 const User = require('./User');
-const Trip = require('./trip');
-const Plan = require('./Plan');
-const Fact = require('./Fact');
+const trip = require('./trip');
+const budget = require('./budget');
+const itinerary = require('./itinerary');
 
 module.exports = {
   User,
-  Trip,
-  Plan,
-  Fact,
+  trip,
+  budget,
+  itinerary,
 };

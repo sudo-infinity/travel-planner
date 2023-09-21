@@ -18,12 +18,12 @@ const handleChange = ({ currentTarget: input }) => {
 	};
 
   const handleFormSubmit = async (e) => {
-    debugger;
 		e.preventDefault();
 		try {
       const res = await loginUser(data);
 			localStorage.setItem("token", res.data);
       localStorage.setItem("id", res.id);
+      localStorage.setItem("username", res.username);
 			window.location = "/";
 		} catch (error) {
 				setError(error.response);

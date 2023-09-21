@@ -23,12 +23,6 @@ const userSchema = new Schema({
     required: true,
     minlength: 5,
   },
-  trips: [
-    {
-      type: Schema.Types.ObjectId,
-      ref: 'Trip',
-    },
-  ],
 });
 
 userSchema.methods.generateAuthToken = function () {

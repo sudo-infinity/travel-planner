@@ -13,8 +13,7 @@ const styles= {
 
 const Header = () => {
   const isUserValid = localStorage.getItem("token");
-  // const user = currentUser(localStorage.getItem("id"));
-  // debugger; 
+  const username = localStorage.getItem("username");
 
   const logout = (event) => {
     event.preventDefault();
@@ -40,12 +39,12 @@ const Header = () => {
       <div className="col-md-3 text-end">
         {isUserValid ? (
           <>
-            {/* <Link
+            <Link
               className="btn btn-outline-secondary me-2"
-              to={`/isUserValids/`}
+              to={`/#/`}
             >
-              {user.name}
-            </Link> */}
+              {username}
+            </Link>
             <button className="btn btn-outline-dark me-2" onClick={logout}>
               Logout
             </button>

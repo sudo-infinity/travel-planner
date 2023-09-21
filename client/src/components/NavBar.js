@@ -15,10 +15,10 @@ const NavBar = () => {
         <>
           <li>
             <Link
-              to={`/users/`}
+              to={`/trips/`}
               className="nav-link px-2 link-dark underline-on-hover"
             >
-              Trip Dashboard
+              Dashboard
             </Link>
           </li>
           <li>
