@@ -1,31 +1,26 @@
-// import React from "react";
-// import { useMutation } from "@apollo/client";
-// import { ADD_TRIP } from "../utils/mutations";
+import React from "react";
+import { createTrip } from '../api/trips';
 
-// const AddTripButton = ({ formState }) => {
-//   const [addTrip, { error }] = useMutation(ADD_TRIP);
+const AddTripButton = ({ formState }) => {
 
-//   const handleFormSubmit = async (event) => {
-//     try {
-//       const { data } = addTrip({
-//         variables: { ...formState },
-//       });
-//       // window.location.reload();
-//     } catch (err) {
-//       console.log(err);
-//     }
-//   };
+  const handleFormSubmit = async ()  => {
+    try {
+        await createTrip({ ...formState });
+    } catch (error) {
+        console.error(error);
+    }
+  };
 
-//   return (
-//     <div className="d-grid">
-//       <button
-//         className="btn btn-outline-dark btn-block py-3"
-//         onClick={handleFormSubmit}
-//       >
-//         Add trip
-//       </button>
-//     </div>
-//   );
-// };
+  return (
+    <div className="d-grid">
+      <button
+        className="btn btn-outline-dark btn-block py-3"
+        onClick={handleFormSubmit}
+      >
+        Add trip
+      </button>
+    </div>
+  );
+};
 
-// export default AddTripButton;
+export default AddTripButton;

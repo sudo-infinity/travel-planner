@@ -17,7 +17,7 @@ import Login from "./pages/Login";
 import Home from "./pages/Home";
 import Trip from "./pages/TripPage";
 import Signup from "./pages/Signup";
-import UserDashboard from "./pages/TripDashboard";
+import TripDashboard from "./pages/TripDashboard";
 import Contact from "./pages/Contact";
 
 const httpLink = createHttpLink({
@@ -53,7 +53,7 @@ const App = () => {
             {!user && <Route path="/login" element={<Login />} />} 
             {!user && <Route path="/signup" element={<Signup />} />}
             {user && <Route path="/trips/:tripId" element={<Trip />} />}
-            <Route path="/users/" element={<UserDashboard />} />
+            <Route path="/trips/" element={<TripDashboard />} />
             <Route path="/contact" element={<Contact />} />
           </Routes>
           <Footer />

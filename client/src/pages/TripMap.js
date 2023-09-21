@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import Map, { Marker, Popup } from 'react-map-gl';
 import { listTrips } from '../api/trips';
-import TripForm from '../TripForm';
+import TripForm from '../components/PopUpTripForm';
 import 'mapbox-gl/dist/mapbox-gl.css';
 
 const TripMap = () => {
@@ -15,8 +15,9 @@ const TripMap = () => {
   });
 
   const getTrips = async () => {
-    const trips = await listTrips();
-    setTrips(trips);
+    const tripList = await listTrips();
+    const tripArray = Array.isArray(tripList) ? tripList : [tripList];
+    setTrips(tripArray);
   };
 
   useEffect(() => {

@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { useForm } from 'react-hook-form';
 
-import { createTrip } from './api/trips';
+import { createTrip } from '../api/trips';
 
 const TripForm = ({ location, onClose }) => {
   const [loading, setLoading] = useState(false);
@@ -11,6 +11,7 @@ const TripForm = ({ location, onClose }) => {
   const onSubmit = async (data) => {
     try {
       setLoading(true);
+      data.user_id = localStorage.getItem("id")
       data.latitude = location.latitude;
       data.longitude = location.longitude;
       await createTrip(data);

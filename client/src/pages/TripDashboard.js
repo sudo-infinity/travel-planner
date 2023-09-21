@@ -6,14 +6,11 @@ import UserTripCards from '../components/UserTripCards';
 
 const dayjs = require("dayjs");
 
-const UserDashboard = () => {
-  const [ userTrips, setUserTrips ] = useState([]);
-  // const [addTripLocation, setAddTripLocation] = useState(null);
- 
+const TripDashboard = () => {
+  const [ userTrips, setUserTrips ] = useState([]); 
 
   const getTrips = async () => {
     const trips = await listTrips();
-    debugger;
     setUserTrips(trips);
   };
 
@@ -31,13 +28,13 @@ const UserDashboard = () => {
     (trip) => dayjs(trip.startDate).diff(dayjs().format("YYYY-MM-DD")) >= 0
   );
 
-  userTrips.forEach((trip) => {
-    console.log(trip.title);
-    console.log("Difference between trip start date and today in ms");
-    console.log(dayjs(trip.startDate).diff(dayjs().format("YYYY-MM-DD")));
-    console.log("Difference between trip end date and today in ms");
-    console.log(dayjs(trip.endDate).diff(dayjs().format("YYYY-MM-DD")));
-  });
+  // userTrips.forEach((trip) => {
+  //   console.log(trip.title);
+  //   console.log("Difference between trip start date and today in ms");
+  //   console.log(dayjs(trip.startDate).diff(dayjs().format("YYYY-MM-DD")));
+  //   console.log("Difference between trip end date and today in ms");
+  //   console.log(dayjs(trip.endDate).diff(dayjs().format("YYYY-MM-DD")));
+  // });
 
   return (
     <div className="container mt-3">
@@ -45,9 +42,9 @@ const UserDashboard = () => {
         <div className="col">
           <h3 className="display-6">My trips</h3>
         </div>
-        {/* <div className="col d-flex justify-content-end">
+        <div className="col d-flex justify-content-end">
           <AddTrip />
-        </div> */}
+        </div>
       </div>
       <div className="row">
         <div className="col-md-6 order-md-2">
@@ -63,4 +60,4 @@ const UserDashboard = () => {
   );
 };
 
-export default UserDashboard;
+export default TripDashboard;

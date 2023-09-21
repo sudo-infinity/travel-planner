@@ -15,6 +15,7 @@ const { authMiddleware } = require('./utils/auth');
 const trips = require('./api/trips');
 const auth = require('./api/auth');
 const users = require('./api/users');
+const itineraries = require('./api/itineraries');
 const db = require('./config/connection');
 
 const app = express();
@@ -25,7 +26,9 @@ const app = express();
 // });
 
 app.use(morgan('common'));
-app.use(helmet());
+app.use(helmet({
+  crossOriginEmbedderPolicy: false,
+}));
 app.use(cors({
   origin: process.env.CORS_ORIGIN,
 }));
@@ -43,6 +46,8 @@ app.get('/', (req, res) => {
 app.use('/api/trips', trips);
 app.use('/api/auth', auth);
 app.use('/api/users', users);
+app.use('/api/itineraries', itineraries);
+app.use('/uploads', express.static(path.join(__dirname, '../uploads')));
 
 app.use(middlewares.notFound);
 
@@ -59,14 +64,9 @@ const server = new ApolloServer({
   context: authMiddleware,
 });
 
-const startApolloServer = async (typeDefs, resolvers) => {
+const startApolloServer = async () => {
   await server.start();
   server.applyMiddleware({ app });
-
-  // // Fix Heroku react routing
-  // app.get('*', (req, res) => {
-  //   res.sendFile(path.join(__dirname, '../client/build/index.html'));
-  // });
 
   db.once('open', () => {
     app.listen(PORT, () => {

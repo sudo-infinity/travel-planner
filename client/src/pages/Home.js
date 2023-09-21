@@ -1,12 +1,11 @@
-import React, { userState } from "react";
+import React from "react";
 import { Link } from "react-router-dom";
 import video from "../assets/Travel_Planner_Background_Compressed.mp4";
 import "../style/video.css";
 
-// import Auth from "../utils/auth";
-
 const Home = () => {
-  // const userId = Auth.getUser()?.data?.username;
+  const username = localStorage.getItem('username')
+  const token = localStorage.getItem('token')
 
   return (
     <div className="video-container">
@@ -19,12 +18,11 @@ const Home = () => {
               <p className="col-md-8 fs-4">
                 Never miss that recommendation again
               </p>
-              {/* {userId ? ( */}
-              {true ? (
+              {token ? (
                 <Link to={`/users/`}>
                   <button type="button" className="grey-button btn-lg">
                     {/* {userId.toUpperCase()}'s Trips */}
-                    User's Trips
+                    {`${username}'s Trips`}
                   </button>
                 </Link>
               ) : (

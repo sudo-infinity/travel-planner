@@ -33,16 +33,19 @@ const UserTripCards = ({ trips }) => {
                   <div className="col">
                     <DeleteTrip tripId={trip._id} />
                   </div>
-                  {/* <div className="col text-end">
+                  <div className="col text-end">
                     <EditTrip
                       tripId={trip._id}
-                      tripName={trip.tripName}
+                      title={trip.title}
                       description={trip.description}
                       location={trip.location}
+                      latitude={trip.latitude}
+                      longitude={trip.longitude}
                       startDate={trip.startDate}
                       endDate={trip.endDate}
+                      userId={trip.user_id}
                     />
-                  </div> */}
+                  </div>
                 </div>
               </div>
             </div>

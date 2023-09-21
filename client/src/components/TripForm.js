@@ -1,25 +1,30 @@
 import React, { useState } from "react";
-// import Auth from "../utils/auth";
 import AddTripButton from "./AddTripButton";
 import EditTripButton from "./EditTripButton";
-
-// const userId = Auth.getUser()?.data?._id;
+import moment from "moment";
 
 const TripForm = ({
   tripId,
-  tripName,
+  title,
   description,
   location,
+  longitude,
+  latitude,
   startDate,
   endDate,
+  userId,
 }) => {
+  const user_id = localStorage.getItem('id');
+
   const [formState, setFormState] = useState({
-    tripName: tripName ? tripName : "",
+    title: title ? title : "",
     description: description ? description : "",
     location: location ? location : "",
-    startDate: startDate ? startDate : "",
-    endDate: endDate ? endDate : "",
-    // userId: userId,
+    longitude: longitude ? longitude : 0,
+    latitude: latitude ? latitude : 0,
+    startDate: startDate ? moment(startDate).utc().format('YYYY-MM-DD') : "",
+    endDate: endDate ? moment(endDate).utc().format('YYYY-MM-DD') : "",
+    user_id: userId ? userId : user_id,
   });
 
   let button;
@@ -56,17 +61,61 @@ const TripForm = ({
     <div className="mx-3">
       <form className="m-3">
         <div className="mb-2">
-          <label htmlFor="tripName" className="form-label">
+          <label htmlFor="title" className="form-label">
             Trip Name
           </label>
           <input
-            id="tripName"
-            name="tripName"
+            id="title"
+            name="title"
             placeholder="Trip name"
-            value={formState.tripName}
+            value={formState.title}
             className="form-control"
             onChange={handleChange}
             type="text"
+            onFocus={resetValidation}
+            onBlur={validation}
+          />
+          <div className="invalid-feedback">
+            Hey! Get back here.. This field is required.
+          </div>
+        </div>
+        <div className="mb-2">
+          <label htmlFor="latitude" className="form-label">
+            Latitude
+          </label>
+          <input
+            id="latitude"
+            name="latitude"
+            placeholder="Latitude for the location"
+            value={formState.latitude}
+            className="form-control"
+            onChange={handleChange}
+            type="number"
+            step="0.00000000000001"
+            min='-90'
+            max='90'
+            onFocus={resetValidation}
+            onBlur={validation}
+          />
+          <div className="invalid-feedback">
+            Hey! Get back here.. This field is required.
+          </div>
+        </div>
+        <div className="mb-2">
+          <label htmlFor="longitude" className="form-label">
+            Longitude
+          </label>
+          <input
+            id="longitude"
+            name="longitude"
+            placeholder="Longitude for the location"
+            value={formState.longitude}
+            className="form-control"
+            onChange={handleChange}
+            type="number"
+            step="0.00000000000001"
+            min='-180'
+            max='180'
             onFocus={resetValidation}
             onBlur={validation}
           />

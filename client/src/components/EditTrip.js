@@ -19,22 +19,19 @@ Modal.setAppElement("#root");
 
 const EditTrip = ({
   tripId,
-  tripName,
+  title,
+  latitude,
+  longitude,
   description,
   location,
   startDate,
   endDate,
+  userId,
 }) => {
-  let subtitle;
-
   const [modalIsOpen, setIsOpen] = useState(false);
 
   function openModal() {
     setIsOpen(true);
-  }
-
-  function afterOpenModal() {
-    subtitle.style.color = "#f00";
   }
 
   function closeModal() {
@@ -52,23 +49,29 @@ const EditTrip = ({
 
       <Modal
         isOpen={modalIsOpen}
-        onAfterOpen={afterOpenModal}
         onRequestClose={closeModal}
         contentLabel="Edit trip"
         style={customStyles}
       >
-        <h4 className="fs-4">Edit trip</h4>
-        <TripForm
-          tripId={tripId}
-          tripName={tripName}
-          description={description}
-          location={location}
-          startDate={startDate}
-          endDate={endDate}
-        />
-        <button className="btn btn-outline-danger" onClick={closeModal}>
-          Cancel
-        </button>
+        <div className="row justify-content-md-center">
+          <div className="col-m-12 text-center">
+            <h4 className="fs-4">Edit This Trip</h4>
+            <TripForm
+              tripId={tripId}
+              title={title}
+              description={description}
+              location={location}
+              startDate={startDate}
+              endDate={endDate}
+              userId={userId}
+              latitude={latitude}
+              longitude={longitude}
+            />
+            <button className="btn btn-outline-danger" onClick={closeModal}>
+              Cancel
+            </button>
+          </div>
+        </div>
       </Modal>
     </span>
   );
