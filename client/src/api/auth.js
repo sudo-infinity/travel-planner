@@ -1,14 +1,9 @@
 const API_URL = 'http://localhost:1337'
 
-export async function listTrips() {
-    const response = await fetch(`${API_URL}/api/trips`)
-    return response.json();
-}
-
-export async function createTrip(entry) {
+export async function loginUser(entry) {
     const apiKey = entry.apiKey;
     delete entry.apiKey;
-    const response = await fetch(`${API_URL}/api/trips`, {
+    const response = await fetch(`${API_URL}/api/auth`, {
       method: 'POST',
       headers: {
         'content-type': 'application/json',

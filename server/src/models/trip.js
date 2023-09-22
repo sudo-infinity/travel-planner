@@ -37,18 +37,33 @@ const tripSchema = new Schema({
   },
   startDate: requiredDate,
   endDate: requiredDate,
-//   plans: [
-//     {
-//       type: Schema.Types.ObjectId,
-//       ref: 'Plan',
-//     },
-//   ],
-//   facts: [
-//     {
-//       type: Schema.Types.ObjectId,
-//       ref: 'Fact',
-//     },
-//   ],
+  notes: [
+    {
+      title: String,
+      content: String,
+    },
+  ],
+  images: [
+    {
+      imageUrl: String,
+    },
+  ],
+  user_id: {
+    type: Schema.Types.ObjectId,
+    ref: 'User',
+  },
+  budget_id: [
+    {
+      type: Schema.Types.ObjectId,
+      ref: 'budget',
+    },
+  ],
+  itinerary_id: [
+    {
+      type: Schema.Types.ObjectId,
+      ref: 'itinerary',
+    },
+  ],
 }, {
   timestamps: true,
 });
