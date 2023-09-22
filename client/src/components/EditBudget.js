@@ -1,12 +1,12 @@
 import React, { useState } from "react";
 import Modal from "react-modal";
-import ItineraryForm from "./ItineraryForm";
+import BudgetForm from "./BudgetForm";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faPencil } from "@fortawesome/free-solid-svg-icons";
 
 Modal.setAppElement("#root");
 
-const EditItinerary = ({ tripId, itineraryId, title, htmlContent}) => {
+const EditBudget = ({ tripId, budgetId, total, categories, currency}) => {
   const [modalIsOpen, setIsOpen] = useState(false);
 
   function openModal() {
@@ -38,11 +38,12 @@ const EditItinerary = ({ tripId, itineraryId, title, htmlContent}) => {
         contentLabel="Edit plan"
         style={customStyles}
       >
-        <ItineraryForm
-          itineraryId={itineraryId}
-          title={title}
+        <BudgetForm
+          budgetId={budgetId}
+          total={total}
           tripId={tripId}
-          htmlContent={htmlContent}
+          currency={currency}
+          categories={categories}
         />
         <button className="btn" onClick={closeModal}>
           close
@@ -52,4 +53,4 @@ const EditItinerary = ({ tripId, itineraryId, title, htmlContent}) => {
   );
 };
 
-export default EditItinerary;
+export default EditBudget;

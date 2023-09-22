@@ -2,28 +2,31 @@
   import ImageGallery from "react-image-gallery";
   // import Gallery from 'react-image-gallery';
   import ItineraryCard from "../components/ItineraryCard";
+  import BudgetCard from "../components/BudgetCard";
   // import FactCard from "../components/FactCard";
-  // import { useQuery } from "@apollo/client";
   import ImageUploadForm from "../components/ImageUploadForm";
   import { useParams } from "react-router-dom";
   import { getTrip } from "../api/trips";
-  // import { QUERY_TRIP } from "../utils/queries";
+  import { getBudgets } from "../api/budget";
   // import AddFact from "../components/AddFact";
   import "../style/background.css";
-  import 'react-image-gallery/styles/css/image-gallery.css'; // Import the CSS for the gallery
   import AddItinerary from "../components/AddItinerary";
+  import AddBudget from "../components/AddBudget";
   import { getItineraries } from "../api/itinerary";
 
   const Trip = () => {
     const { tripId } = useParams();
     const [ images, setImages ] = useState([]);
     const [ itineraries, setItineraries ] = useState([]);
+    const [ budgets, setBudgets ] = useState([]);
 
-    const thisTripAndItineraries = async () => {
+    const thisTripItinerariesAndBudgets = async () => {
       const itineraries = await getItineraries(tripId);
       const convertedItineraries = Array.isArray(itineraries) ? itineraries : [itineraries];
       setItineraries(convertedItineraries);
-      console.log(convertedItineraries);
+      const budgets = await getBudgets(tripId);
+      const convertedBudgets = Array.isArray(budgets) ? budgets : [budgets];
+      setBudgets(convertedBudgets);
       const trip = await getTrip(tripId);
       const images = trip[0].images
       const convertedImages = Array.isArray(images) ? images : [images];
@@ -35,7 +38,7 @@
     };
 
     useEffect(() => {
-      thisTripAndItineraries();
+      thisTripItinerariesAndBudgets();
     }, []);
 
     const renderCustomItem = (item) => {
@@ -77,7 +80,7 @@
       <div className="">
         <div className="">
           <div className="container mt-3">
-            <div className="row row-eq-height">
+            <div className="row row-eq-height mb-5">
               <div className="col-md-12 text-center">
               <div>
                 { images.length>0 && (
@@ -93,8 +96,8 @@
               </div>
               <div className="col-md-4">
                 <h3 className="">Budget</h3>
-                {/* <AddVisit category="activity" /> */}
-                {/* <ItineraryCard plans={activityPlans} tripId={tripId} /> */}
+                <AddBudget tripId={tripId} />
+                <BudgetCard budgets={budgets} tripId={tripId} />
               </div>
               <div className="col-md-4">
                 <h3 className="">Notes</h3>

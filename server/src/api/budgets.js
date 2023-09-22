@@ -1,13 +1,13 @@
 const { Router } = require('express');
 
 const router = Router();
-const Itinerary = require('../models/itinerary');
+const Budget = require('../models/budget');
 
 router.get('/', async (req, res, next) => {
   try {
     const tripId = req.query.trip_id;
-    const itineraries = await Itinerary.find({ trip_id: tripId });
-    res.json(itineraries);
+    const budgets = await Budget.find({ trip_id: tripId });
+    res.json(budgets);
   } catch (error) {
     next(error);
   }
@@ -15,9 +15,9 @@ router.get('/', async (req, res, next) => {
 
 router.post('/', async (req, res, next) => {
   try {
-    const itinerary = new Itinerary(req.body);
-    const createditinerary = await itinerary.save();
-    res.json(createditinerary);
+    const budget = new Budget(req.body);
+    const createdBudget = await budget.save();
+    res.json(createdBudget);
   } catch (error) {
     if (error.constructor.name === 'ValidationError') {
       res.status(422);
@@ -28,13 +28,13 @@ router.post('/', async (req, res, next) => {
 
 router.post('/update', async (req, res, next) => {
   try {
-    const updatedItinerary = req.body;
-    const itineraryId = req.query.itinerary_id;
+    const updatedBudget = req.body;
+    const budgetId = req.query.budget_id;
 
-    const itinerary = await Itinerary.findOne({ _id: itineraryId });
-    await itinerary.updateOne(updatedItinerary);
-    const itineraries = await Itinerary.find({ trip_id: req.body.trip_id });
-    res.json(itineraries);
+    const budget = await Budget.findOne({ _id: budgetId });
+    await budget.updateOne(updatedBudget);
+    const budgets = await Budget.find({ trip_id: req.body.trip_id });
+    res.json(budgets);
   } catch (error) {
     if (error.constructor.name === 'ValidationError') {
       res.status(422);
@@ -46,7 +46,7 @@ router.post('/update', async (req, res, next) => {
 router.post('/delete', async (req, res, next) => {
   try {
     const { id } = req.body;
-    await Itinerary.deleteOne({ _id: id });
+    await Budget.deleteOne({ _id: id });
     res.status(200);
   } catch (error) {
     if (error.constructor.name === 'ValidationError') {

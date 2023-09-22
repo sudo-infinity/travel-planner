@@ -85,3 +85,7 @@ body {
   width: auto;
   height: 200px;
 }
+
+.image-gallery-slide-wrapper {
+  z-index: 0;
+}
