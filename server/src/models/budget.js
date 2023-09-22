@@ -12,15 +12,17 @@ const requiredString = {
 };
 
 const budgetSchema = new Schema({
-  total: {
-    ...requiredNumber,
-  },
+  total: requiredNumber,
   currency: requiredString,
   categories: {
     accommodation: requiredNumber,
     food: requiredNumber,
     activities: requiredNumber,
     transportation: requiredNumber,
+  },
+  trip_id: {
+    type: Schema.Types.ObjectId,
+    ref: 'trip',
   },
 });
 

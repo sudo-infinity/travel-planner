@@ -1,8 +1,8 @@
 const express = require('express');
 const { ApolloServer } = require('apollo-server-express');
 const path = require('path');
-const cookieParser = require('cookie-parser')
-const bodyParser = require('body-parser')
+const cookieParser = require('cookie-parser');
+const bodyParser = require('body-parser');
 const morgan = require('morgan');
 const helmet = require('helmet');
 const cors = require('cors');
@@ -16,14 +16,10 @@ const trips = require('./api/trips');
 const auth = require('./api/auth');
 const users = require('./api/users');
 const itineraries = require('./api/itineraries');
+const budgets = require('./api/budgets');
 const db = require('./config/connection');
 
 const app = express();
-
-// mongoose.connect(process.env.DATABASE_URL, {
-//   useNewUrlParser: true,
-//   useUnifiedTopology: true,
-// });
 
 app.use(morgan('common'));
 app.use(helmet({
@@ -47,6 +43,7 @@ app.use('/api/trips', trips);
 app.use('/api/auth', auth);
 app.use('/api/users', users);
 app.use('/api/itineraries', itineraries);
+app.use('/api/budgets', budgets);
 app.use('/uploads', express.static(path.join(__dirname, '../uploads')));
 
 app.use(middlewares.notFound);
