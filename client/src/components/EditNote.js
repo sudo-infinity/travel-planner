@@ -1,55 +1,50 @@
 import React, { useState } from "react";
 import Modal from "react-modal";
-import FactForm from "./FactForm";
+import NoteForm from "./NoteForm";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faPencil } from "@fortawesome/free-solid-svg-icons";
 
 Modal.setAppElement("#root");
 
-const customStyles = {
-  content: {
-    top: "50%",
-    left: "50%",
-    right: "auto",
-    bottom: "auto",
-    marginRight: "-50%",
-    transform: "translate(-50%, -50%)",
-  },
-};
-
-const EditFact = ({ factId, description }) => {
-  let subtitle;
+const EditNote = ({ tripId, noteIndex, title, content}) => {
   const [modalIsOpen, setIsOpen] = useState(false);
 
   function openModal() {
     setIsOpen(true);
   }
 
-  function afterOpenModal() {
-    subtitle.style.color = "#f00";
-  }
-
   function closeModal() {
     setIsOpen(false);
   }
+
+  const customStyles = {
+    content: {
+      zIndex: 10000,
+    },
+  };
 
   return (
     <div>
       <FontAwesomeIcon
         icon={faPencil}
         type="button"
-        onClick={openModal}
         className="btn"
+        onClick={openModal}
       />
+
       <Modal
         isOpen={modalIsOpen}
-        onAfterOpen={afterOpenModal}
         onRequestClose={closeModal}
-        contentLabel="Edit fact"
+        contentLabel="Edit plan"
         style={customStyles}
       >
-        <FactForm factId={factId} description={description} />
-        <button className="btn btn-outline-danger my-3" onClick={closeModal}>
+        <NoteForm
+          noteIndex={noteIndex}
+          title={title}
+          tripId={tripId}
+          content={content}
+        />
+        <button className="btn" onClick={closeModal}>
           close
         </button>
       </Modal>
@@ -57,4 +52,4 @@ const EditFact = ({ factId, description }) => {
   );
 };
 
-export default EditFact;
+export default EditNote;

@@ -17,6 +17,7 @@ const auth = require('./api/auth');
 const users = require('./api/users');
 const itineraries = require('./api/itineraries');
 const budgets = require('./api/budgets');
+const notes = require('./api/notes');
 const db = require('./config/connection');
 
 const app = express();
@@ -44,6 +45,7 @@ app.use('/api/auth', auth);
 app.use('/api/users', users);
 app.use('/api/itineraries', itineraries);
 app.use('/api/budgets', budgets);
+app.use('/api/notes', notes);
 app.use('/uploads', express.static(path.join(__dirname, '../uploads')));
 
 app.use(middlewares.notFound);
