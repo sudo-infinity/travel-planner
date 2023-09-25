@@ -52,18 +52,6 @@ const tripSchema = new Schema({
     type: Schema.Types.ObjectId,
     ref: 'User',
   },
-  budget_id: [
-    {
-      type: Schema.Types.ObjectId,
-      ref: 'budget',
-    },
-  ],
-  itinerary_id: [
-    {
-      type: Schema.Types.ObjectId,
-      ref: 'itinerary',
-    },
-  ],
 }, {
   timestamps: true,
 });

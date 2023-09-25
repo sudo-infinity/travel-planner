@@ -1,8 +1,8 @@
 import React from "react";
 import EditBudget from "./EditBudget";
-import DeleteItinerary from "./DeleteItinerary";
+import DeleteBudget from "./DeleteBudget";
 
-const ItineraryCard = ({ tripId, budgets }) => {
+const BudgetCard = ({ tripId, budgets }) => {
   return (
     <div>
       {budgets.map((budget) => (
@@ -27,7 +27,7 @@ const ItineraryCard = ({ tripId, budgets }) => {
           <div className="card-footer">
             <div className="row">
               <div className="col">
-                <DeleteItinerary itineraryId={budget._id}/>
+                <DeleteBudget budgetId={budget._id}/>
               </div>
               <div className="col text-end">
                 <EditBudget
@@ -46,4 +46,4 @@ const ItineraryCard = ({ tripId, budgets }) => {
   );
 };
 
-export default ItineraryCard;
+export default BudgetCard;
