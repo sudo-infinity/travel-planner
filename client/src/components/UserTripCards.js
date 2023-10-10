@@ -2,6 +2,7 @@ import React from "react";
 import { Link } from "react-router-dom";
 import EditTrip from "./EditTrip";
 import DeleteTrip from "./DeleteTrip";
+import ShareTrip from "./ShareTrip";
 const dayjs = require("dayjs");
 
 const UserTripCards = ({ trips }) => {
@@ -32,6 +33,9 @@ const UserTripCards = ({ trips }) => {
                 <div className="row">
                   <div className="col">
                     <DeleteTrip tripId={trip._id} />
+                  </div>
+                  <div className="col">
+                    <ShareTrip tripId={trip._id} />
                   </div>
                   <div className="col text-end">
                     <EditTrip

@@ -50,3 +50,39 @@ export async function deleteTrip(id) {
   });
   return response.json();
 }
+
+
+export async function shareTrip(entry) {
+  const response = await fetch(`${API_URL}/api/trips/share-trip`, {
+    method: 'POST',
+    headers: {
+      'content-type': 'application/json',
+    },
+    body: JSON.stringify(entry),
+  });
+  return response.json();
+}
+
+export async function removeAcess(userId, tripId) {
+  const response = await fetch(`${API_URL}/api/trips/remove-access`, {
+    method: 'POST',
+    headers: {
+      'content-type': 'application/json',
+    },
+    body: JSON.stringify({user_id: userId, trip_id: tripId}),
+  });
+  return response.json();
+}
+
+
+
+export async function listSharings(id) {
+  const response = await fetch(`${API_URL}/api/trips/shared-list`, {
+    method: 'POST',
+    headers: {
+      'content-type': 'application/json',
+    },
+    body: JSON.stringify({id: id}),
+  });
+  return response.json();
+}

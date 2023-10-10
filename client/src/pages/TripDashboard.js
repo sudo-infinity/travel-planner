@@ -8,6 +8,8 @@ const dayjs = require("dayjs");
 
 const TripDashboard = () => {
   const [ userTrips, setUserTrips ] = useState([]); 
+  const [ userNames, setUserNames ] = useState([]);
+
 
   const getTrips = async () => {
     const trips = await listTrips();
@@ -46,7 +48,8 @@ const TripDashboard = () => {
           <AddTrip />
         </div>
       </div>
-      <div className="row">
+      { userTrips.length > 0 ? (
+        <div className="row">
         <div className="col-md-6 order-md-2">
           <h4 className="fs-4">Current & Upcoming Trips</h4>
           <UserTripCards trips={futureTrips} />
@@ -56,6 +59,14 @@ const TripDashboard = () => {
           <UserTripCards trips={previousTrips} />
         </div>
       </div>
+      ) : (
+        <div className="row">
+        <div className="col">
+          <h3 className="display-6">You have no trips to show.</h3>
+        </div>
+      </div>
+      ) }
+      
     </div>
   );
 };

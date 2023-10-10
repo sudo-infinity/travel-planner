@@ -3,6 +3,8 @@ const upload = require('../mutlerConfig');
 
 const router = Router();
 const Trip = require('../models/trip');
+const Sharing = require('../models/sharing');
+const { User } = require('../models/User');
 
 router.get('/', async (req, res, next) => {
   try {
@@ -16,7 +18,11 @@ router.get('/', async (req, res, next) => {
 router.get('/user-trips', async (req, res, next) => {
   try {
     const userId = req.query.user_id;
-    const trips = await Trip.find({ user_id: userId });
+    const userTrips = await Trip.find({ user_id: userId });
+    const sharedTrips = await Sharing.find({ user_id: userId }).populate('trip_id');
+
+    const trips = userTrips.concat(sharedTrips.map((sharing) => sharing.trip_id));
+
     res.json(trips);
   } catch (error) {
     if (error.constructor.name === 'ValidationError') {
@@ -45,6 +51,47 @@ router.post('/', async (req, res, next) => {
     const trip = new Trip(req.body);
     const createdTrip = await trip.save();
     res.json(createdTrip);
+  } catch (error) {
+    if (error.constructor.name === 'ValidationError') {
+      res.status(422);
+    }
+    next(error);
+  }
+});
+
+router.post('/share-trip', async (req, res, next) => {
+  try {
+    const user = await User.findOne({ username: req.body.userName });
+
+    // eslint-disable-next-line no-underscore-dangle
+    req.body.user_id = user._id;
+    const sharing = new Sharing(req.body);
+    const createdSharing = await sharing.save();
+    res.json(createdSharing);
+  } catch (error) {
+    if (error.constructor.name === 'ValidationError') {
+      res.status(422);
+    }
+    next(error);
+  }
+});
+
+router.post('/shared-list', async (req, res, next) => {
+  try {
+    const sharings = await Sharing.find({ trip_id: req.body.id }).populate('user_id');
+    res.json(sharings);
+  } catch (error) {
+    if (error.constructor.name === 'ValidationError') {
+      res.status(422);
+    }
+    next(error);
+  }
+});
+
+router.post('/remove-access', async (req, res, next) => {
+  try {
+    await Sharing.deleteOne({ user_id: req.body.user_id, trip_id: req.body.trip_id });
+    res.status(200);
   } catch (error) {
     if (error.constructor.name === 'ValidationError') {
       res.status(422);

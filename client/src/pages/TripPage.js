@@ -28,8 +28,6 @@ const Trip = () => {
   });
   const [units, setUnits] = React.useState('metric');
 
-  
-
   useEffect(() => {
     const thisTripItinerariesAndBudgets = async () => {
       const itineraries = await getItineraries(tripId);
@@ -106,7 +104,7 @@ const Trip = () => {
             <div className="col-md-12 text-center">
             <div>
               <h1 className="mb-2">{trip?.title}</h1>
-              { images.length>0 && (
+              { images?.length>0 && (
                 <ImageGallery items={images} renderItem={renderCustomItem} renderThumbInner={renderCustomThumbnail} />
               )}
               <ImageUploadForm tripId={tripId}/>
